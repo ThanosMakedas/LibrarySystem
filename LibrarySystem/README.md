@@ -133,7 +133,8 @@ Alla tester körs med: dotnet test
 
 # Screenshots
 
-![Home](LibrarySystem/Screenshots/Home.png)
-![Books](LibrarySystem/Screenshots/Books.png)
-![Loans](LibrarySystem/Screenshots/Loans.png)
-![Members](LibrarySystem/Screenshots/Members.png)
+
+![Startsida](LibrarySystem/Screenshots/Home.png)
+![Böcker](LibrarySystem/Screenshots/Books.png)
+![Medlemmar](LibrarySystem/Screenshots/Members.png)
+![Utlåning](LibrarySystem/Screenshots/Loans.png)
