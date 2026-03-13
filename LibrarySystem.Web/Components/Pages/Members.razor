@@ -1,0 +1,64 @@
+﻿@page "/members"
+@using LibrarySystem.Core.Models
+@using LibrarySystem.Data
+@using Microsoft.EntityFrameworkCore
+@inject LibraryContext Db
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="mb-0">Medlemmar</h3>
+        <a href="/members/add" class="btn btn-primary">Lägg till ny medlem</a>
+    </div>
+
+    @if (members == null)
+    {
+        <div class="alert alert-info">Laddar medlemmar...</div>
+    }
+    else if (!members.Any())
+    {
+        <div class="alert alert-secondary">Inga medlemmar hittades.</div>
+    }
+    else
+    {
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <table class="table table-striped table-hover align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Medlems-ID</th>
+                            <th>Namn</th>
+                            <th>E-post</th>
+                            <th>Medlem sedan</th>
+                            <th>Aktiva lån</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var member in members)
+                        {
+                            <tr>
+                                <td>@member.MemberId</td>
+                                <td>@member.Name</td>
+                                <td>@member.Email</td>
+                                <td>@member.MemberSince.ToShortDateString()</td>
+                                <td>
+                                    <span class="badge bg-primary">@member.Loans.Count</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    List<Member>? members;
+
+    protected override async Task OnInitializedAsync()
+    {
+        members = await Db.Members
+            .Include(m => m.Loans)
+            .ToListAsync();
+    }
+}

@@ -1,0 +1,77 @@
+﻿@page "/loans"
+@using LibrarySystem.Core.Models
+@using LibrarySystem.Data
+@using Microsoft.EntityFrameworkCore
+@inject LibraryContext Db
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="mb-0">Utlåning</h3>
+    </div>
+
+    @if (loans == null)
+    {
+        <div class="alert alert-info">Laddar utlåningar...</div>
+    }
+    else if (!loans.Any())
+    {
+        <div class="alert alert-secondary">Inga lån hittades.</div>
+    }
+    else
+    {
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <table class="table table-striped table-hover align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Bok</th>
+                            <th>Medlem</th>
+                            <th>Lånedatum</th>
+                            <th>Förfallodatum</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var loan in loans)
+                        {
+                            <tr>
+                                <td>@loan.Book.Title</td>
+                                <td>@loan.Member.Name</td>
+                                <td>@loan.LoanDate.ToShortDateString()</td>
+                                <td>@loan.DueDate.ToShortDateString()</td>
+                                <td>
+                                    @if (loan.ReturnDate != null)
+                                    {
+                                        <span class="badge bg-success">Returnerad</span>
+                                    }
+                                    else if (loan.IsOverdue)
+                                    {
+                                        <span class="badge bg-danger">Försenad</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-warning text-dark">Aktiv</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+
+    List<Loan>? loans;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loans = await Db.Loans
+            .Include(l => l.Book)
+            .Include(l => l.Member)
+            .ToListAsync();
+    }
+
+}

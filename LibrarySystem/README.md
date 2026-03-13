@@ -1,34 +1,139 @@
-﻿# LibrarySystem – Del 1 (OOP, Arv/Komposition & Algoritmer)
+﻿# LibrarySystem – Blazor & Entity Framework
 
 ## Beskrivning
-Detta är ett konsolbaserat bibliotekssystem utvecklat i C#.
-Projektet demonstrerar objektorienterade principer såsom inkapsling, komposition, interface och polymorfism samt grundläggande algoritmer.
+Detta projekt är ett enkelt bibliotekssystem utvecklat i **C# med Blazor och Entity Framework Core**.
 
-## Funktionalitet
-- Hantering av böcker, medlemmar och utlåning
-- Sökning via ISearchable
-- Sortering av böcker
-- Statistik:
-  - Totalt antal böcker
-  - Antal utlånade böcker
-  - Mest aktiva låntagare
+Applikationen gör det möjligt att hantera:
+- Böcker
+- Medlemmar
+- Utlåning
 
-## Designval
-Projektet använder **komposition (Alternativ B)**:
-- Library
-  - BookCatalog
-  - MemberRegistry
-  - LoanManager
+Systemet använder **Entity Framework Core** för databasåtkomst och **Blazor** för användargränssnittet.
 
-## Testning
-Projektet innehåller xUnit-tester:
+Projektet är uppdelat i flera lager:
 
-- BookTests
-- LoanTests
-- SearchTests
-- LibraryStatisticsTests
+- **LibrarySystem.Core** – Domänmodeller
+- **LibrarySystem.Data** – DbContext och databaslogik
+- **LibrarySystem.Web** – Blazor-applikationen
+- **LibrarySystem.Tests** – xUnit-tester
 
-Totalt: 14 tester
+---
 
-Alla tester körs med: dotnet test
-och dotnet run --project LibrarySystem
+# Funktionalitet
+
+Applikationen innehåller följande funktioner:
+
+### Böcker
+- Visa alla böcker
+- Lägga till ny bok
+- Redigera bok
+- Ta bort bok
+
+### Medlemmar
+- Visa alla medlemmar
+- Lägga till ny medlem
+- Se antal aktiva lån
+
+### Utlåning
+- Visa aktiva lån
+- Visa försenade lån
+- Visa returnerade böcker
+
+---
+
+# Tekniker som används
+
+Projektet använder:
+
+- **C#**
+- **Blazor**
+- **Entity Framework Core**
+- **xUnit**
+- **Bootstrap**
+
+---
+
+# Hur man kör projektet
+
+1. Klona repositoryt
+
+2. Öppna lösningen i **Visual Studio**
+
+3. Starta projektet:
+
+4. Applikationen startar i webbläsaren.
+
+---
+
+# Databasmodell
+
+Applikationen använder tre huvudtabeller:
+
+## Book
+| Fält | Beskrivning |
+|-----|-------------|
+| Id | Primärnyckel |
+| ISBN | Boknummer |
+| Title | Titel |
+| Author | Författare |
+| PublishedYear | Utgivningsår |
+| IsAvailable | Om boken är tillgänglig |
+
+## Member
+| Fält | Beskrivning |
+|-----|-------------|
+| Id | Primärnyckel |
+| MemberId | Medlemsnummer |
+| Name | Namn |
+| Email | E-post |
+| MemberSince | Registreringsdatum |
+
+## Loan
+| Fält | Beskrivning |
+|-----|-------------|
+| Id | Primärnyckel |
+| BookId | Referens till bok |
+| MemberId | Referens till medlem |
+| LoanDate | Lånedatum |
+| DueDate | Förfallodatum |
+| ReturnDate | Returdatum |
+
+---
+
+# Databasschema
+
+Relationer mellan tabeller:
+
+- En bok kan lånas flera gånger
+- En medlem kan ha flera lån
+
+---
+
+# Testning
+
+Projektet innehåller **xUnit-tester**.
+
+Testerna testar bland annat:
+
+- Skapa bok
+- Hämta böcker
+- Uppdatera bok
+- Ta bort bok
+- Skapa medlem
+- Skapa lån
+- Uppdatera lån
+
+Totalt:
+
+**10 enhetstester**
+
+Alla tester körs med:
+
+---
+
+# Screenshots
+
+![Startsida](screenshots/home.png)
+![Böcker](screenshots/books.png)
+![Medlemmar](screenshots/members.png)
+![Utlåning](screenshots/loans.png)

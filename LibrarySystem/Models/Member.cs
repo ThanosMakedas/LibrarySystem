@@ -1,21 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LibrarySystem.Core.Models;
+﻿namespace LibrarySystem.Core.Models;
 
 public class Member
 {
-    public string MemberId { get; }            
-    public string Name { get; private set; }
-    public string Email { get; private set; }
-    public DateTime MemberSince { get; }
+    public int Id { get; set; }
 
-    // Properties för att hålla reda på lånade böcker
+    public string MemberId { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public DateTime MemberSince { get; set; } = DateTime.Now;
+
+    public ICollection<Loan> Loans { get; set; } = new List<Loan>();
+
+    // Behåll från Del 1 så att gamla services fortfarande fungerar
     private readonly List<Book> _borrowedBooks = new();
     public IReadOnlyList<Book> BorrowedBooks => _borrowedBooks;
+
+    public Member()
+    {
+    }
 
     public Member(string memberId, string name, string email)
     {
