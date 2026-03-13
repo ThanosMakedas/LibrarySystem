@@ -24,6 +24,7 @@ else
                 <th>Författare</th>
                 <th>År</th>
                 <th>Status</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -35,6 +36,12 @@ else
                     <td>@book.Author</td>
                     <td>@book.PublishedYear</td>
                     <td>@(book.IsAvailable ? "Tillgänglig" : "Utlånad")</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm"
+                                @onclick="() => DeleteBook(book.Id)">
+                            Delete
+                        </button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -48,6 +55,19 @@ else
     protected override async Task OnInitializedAsync()
     {
         books = await Db.Books.ToListAsync();
+    }
+
+    async Task DeleteBook(int id)
+    {
+        var book = await Db.Books.FindAsync(id);
+
+        if (book != null)
+        {
+            Db.Books.Remove(book);
+            await Db.SaveChangesAsync();
+
+            books = await Db.Books.ToListAsync();
+        }
     }
 
 }
