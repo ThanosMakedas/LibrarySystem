@@ -127,13 +127,13 @@ Totalt:
 
 **10 enhetstester**
 
-Alla tester körs med:
+Alla tester körs med: dotnet test
 
 ---
 
 # Screenshots
 
-![Startsida](screenshots/home.png)
-![Böcker](screenshots/books.png)
-![Medlemmar](screenshots/members.png)
-![Utlåning](screenshots/loans.png)
+![Home](LibrarySystem/Screenshots/Home.png)
+![Books](LibrarySystem/Screenshots/Books.png)
+![Loans](LibrarySystem/Screenshots/Loans.png)
+![Members](LibrarySystem/Screenshots/Members.png)
