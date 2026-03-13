@@ -1,9 +1,7 @@
-﻿// EditBook.razor
-
-@page "/books/edit/{Id:int}"
+﻿@page "/books/edit/{id:int}"
+@rendermode InteractiveServer
 @using LibrarySystem.Core.Models
 @using LibrarySystem.Data
-@using Microsoft.EntityFrameworkCore
 @inject LibraryContext Db
 @inject NavigationManager Nav
 
@@ -15,7 +13,7 @@
 }
 else
 {
-    <EditForm Model="@book" OnValidSubmit="HandleSubmit">
+    <EditForm Model="book" OnValidSubmit="HandleSubmit" FormName="EditBookForm">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
@@ -39,18 +37,11 @@ else
             <InputNumber class="form-control" @bind-Value="book.PublishedYear" />
         </div>
 
-        <div class="mb-3 form-check">
-            <InputCheckbox class="form-check-input" @bind-Value="book.IsAvailable" />
-            <label class="form-check-label">Tillgänglig</label>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Spara ändringar</button>
-        <a href="/books" class="btn btn-secondary ms-2">Tillbaka</a>
+        <button type="submit" class="btn btn-primary">Spara</button>
     </EditForm>
 }
 
 @code {
-
     [Parameter]
     public int Id { get; set; }
 
@@ -58,16 +49,17 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        book = await Db.Books.FirstOrDefaultAsync(b => b.Id == Id);
+        book = await Db.Books.FindAsync(Id);
     }
 
     private async Task HandleSubmit()
     {
-        if (book != null)
-        {
-            await Db.SaveChangesAsync();
-            Nav.NavigateTo("/books");
-        }
-    }
+        if (book == null)
+            return;
 
+        Db.Books.Update(book);
+        await Db.SaveChangesAsync();
+
+        Nav.NavigateTo("/books");
+    }
 }

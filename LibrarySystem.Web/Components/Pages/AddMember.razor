@@ -1,6 +1,5 @@
-﻿// AddMember.razor
-
-@page "/members/add"
+﻿@page "/members/add"
+@rendermode InteractiveServer
 @using LibrarySystem.Core.Models
 @using LibrarySystem.Data
 @inject LibraryContext Db
@@ -8,7 +7,7 @@
 
 <h3>Lägg till ny medlem</h3>
 
-<EditForm Model="@newMember" OnValidSubmit="HandleSubmit">
+<EditForm Model="newMember" OnValidSubmit="HandleSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -31,18 +30,22 @@
 </EditForm>
 
 @code {
-
     private Member newMember = new();
 
     private async Task HandleSubmit()
     {
+        if (string.IsNullOrWhiteSpace(newMember.MemberId) ||
+            string.IsNullOrWhiteSpace(newMember.Name) ||
+            string.IsNullOrWhiteSpace(newMember.Email))
+        {
+            return;
+        }
+
         newMember.MemberSince = DateTime.Now;
 
         Db.Members.Add(newMember);
-
         await Db.SaveChangesAsync();
 
         Nav.NavigateTo("/members");
     }
-
 }

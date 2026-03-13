@@ -4,6 +4,7 @@
 Detta projekt är ett enkelt bibliotekssystem utvecklat i **C# med Blazor och Entity Framework Core**.
 
 Applikationen gör det möjligt att hantera:
+
 - Böcker
 - Medlemmar
 - Utlåning
@@ -19,11 +20,19 @@ Projektet är uppdelat i flera lager:
 
 ---
 
+# Blazor-sidor
+
+Applikationen innehåller minst tre funktionella Blazor-sidor:
+
+- **Books** – hantera böcker
+- **Members** – visa och lägga till medlemmar
+- **Loans** – visa utlånade böcker
+
+---
+
 # Funktionalitet
 
-Applikationen innehåller följande funktioner:
-
-### Böcker
+### Böcker (CRUD)
 - Visa alla böcker
 - Lägga till ny bok
 - Redigera bok
@@ -65,11 +74,20 @@ Projektet använder:
 
 ---
 
+# Databas
+
+Applikationen använder **Entity Framework Core** med en **DbContext (LibraryContext)** för att hantera databasen.
+
+Data sparas och hämtas från databasen via Entity Framework.
+
+---
+
 # Databasmodell
 
 Applikationen använder tre huvudtabeller:
 
 ## Book
+
 | Fält | Beskrivning |
 |-----|-------------|
 | Id | Primärnyckel |
@@ -80,6 +98,7 @@ Applikationen använder tre huvudtabeller:
 | IsAvailable | Om boken är tillgänglig |
 
 ## Member
+
 | Fält | Beskrivning |
 |-----|-------------|
 | Id | Primärnyckel |
@@ -89,6 +108,7 @@ Applikationen använder tre huvudtabeller:
 | MemberSince | Registreringsdatum |
 
 ## Loan
+
 | Fält | Beskrivning |
 |-----|-------------|
 | Id | Primärnyckel |
@@ -123,11 +143,15 @@ Testerna testar bland annat:
 - Skapa lån
 - Uppdatera lån
 
-Totalt:
+Totalt finns **minst 10 enhetstester**.
 
-**10 enhetstester**
+Kör tester med:
 
-Alla tester körs med: dotnet test
+
+dotnet test
+
+
+Alla tester passerar.
 
 ---
 

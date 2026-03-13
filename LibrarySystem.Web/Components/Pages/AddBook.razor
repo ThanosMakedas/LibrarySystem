@@ -1,6 +1,5 @@
-﻿// AddBook.razor
-
-@page "/books/add"
+﻿@page "/books/add"
+@rendermode InteractiveServer
 @using LibrarySystem.Core.Models
 @using LibrarySystem.Data
 @inject LibraryContext Db
@@ -8,7 +7,7 @@
 
 <h3>Lägg till ny bok</h3>
 
-<EditForm Model="@newBook" OnValidSubmit="HandleSubmit">
+<EditForm Model="newBook" OnValidSubmit="HandleSubmit" FormName="AddBookForm">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -40,9 +39,18 @@
 
     private async Task HandleSubmit()
     {
+        if (string.IsNullOrWhiteSpace(newBook.ISBN) ||
+            string.IsNullOrWhiteSpace(newBook.Title) ||
+            string.IsNullOrWhiteSpace(newBook.Author))
+        {
+            return;
+        }
+
         newBook.IsAvailable = true;
+
         Db.Books.Add(newBook);
         await Db.SaveChangesAsync();
+
         Nav.NavigateTo("/books");
     }
 }
