@@ -1,0 +1,48 @@
+﻿// AddBook.razor
+
+@page "/books/add"
+@using LibrarySystem.Core.Models
+@using LibrarySystem.Data
+@inject LibraryContext Db
+@inject NavigationManager Nav
+
+<h3>Lägg till ny bok</h3>
+
+<EditForm Model="@newBook" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label>ISBN</label>
+        <InputText class="form-control" @bind-Value="newBook.ISBN" />
+    </div>
+
+    <div class="mb-3">
+        <label>Titel</label>
+        <InputText class="form-control" @bind-Value="newBook.Title" />
+    </div>
+
+    <div class="mb-3">
+        <label>Författare</label>
+        <InputText class="form-control" @bind-Value="newBook.Author" />
+    </div>
+
+    <div class="mb-3">
+        <label>Publiceringsår</label>
+        <InputNumber class="form-control" @bind-Value="newBook.PublishedYear" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Spara</button>
+</EditForm>
+
+@code {
+    private Book newBook = new();
+
+    private async Task HandleSubmit()
+    {
+        newBook.IsAvailable = true;
+        Db.Books.Add(newBook);
+        await Db.SaveChangesAsync();
+        Nav.NavigateTo("/books");
+    }
+}
