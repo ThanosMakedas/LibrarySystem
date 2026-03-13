@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibrarySystem.Tests", "Libr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibrarySystem.Data", "LibrarySystem.Data\LibrarySystem.Data.csproj", "{9F67283B-165D-411F-893A-9EAA04B9FD0C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibrarySystem.Web", "LibrarySystem.Web\LibrarySystem.Web.csproj", "{77644C37-EA3B-4665-8EFB-263592033AC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{9F67283B-165D-411F-893A-9EAA04B9FD0C}.Release|x64.Build.0 = Release|Any CPU
 		{9F67283B-165D-411F-893A-9EAA04B9FD0C}.Release|x86.ActiveCfg = Release|Any CPU
 		{9F67283B-165D-411F-893A-9EAA04B9FD0C}.Release|x86.Build.0 = Release|Any CPU
+		{77644C37-EA3B-4665-8EFB-263592033AC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77644C37-EA3B-4665-8EFB-263592033AC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77644C37-EA3B-4665-8EFB-263592033AC6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{77644C37-EA3B-4665-8EFB-263592033AC6}.Debug|x64.Build.0 = Debug|Any CPU
+		{77644C37-EA3B-4665-8EFB-263592033AC6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{77644C37-EA3B-4665-8EFB-263592033AC6}.Debug|x86.Build.0 = Debug|Any CPU
+		{77644C37-EA3B-4665-8EFB-263592033AC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77644C37-EA3B-4665-8EFB-263592033AC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77644C37-EA3B-4665-8EFB-263592033AC6}.Release|x64.ActiveCfg = Release|Any CPU
+		{77644C37-EA3B-4665-8EFB-263592033AC6}.Release|x64.Build.0 = Release|Any CPU
+		{77644C37-EA3B-4665-8EFB-263592033AC6}.Release|x86.ActiveCfg = Release|Any CPU
+		{77644C37-EA3B-4665-8EFB-263592033AC6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
