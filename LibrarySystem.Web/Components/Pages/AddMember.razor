@@ -1,0 +1,48 @@
+﻿// AddMember.razor
+
+@page "/members/add"
+@using LibrarySystem.Core.Models
+@using LibrarySystem.Data
+@inject LibraryContext Db
+@inject NavigationManager Nav
+
+<h3>Lägg till ny medlem</h3>
+
+<EditForm Model="@newMember" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label>Member ID</label>
+        <InputText class="form-control" @bind-Value="newMember.MemberId" />
+    </div>
+
+    <div class="mb-3">
+        <label>Namn</label>
+        <InputText class="form-control" @bind-Value="newMember.Name" />
+    </div>
+
+    <div class="mb-3">
+        <label>Email</label>
+        <InputText class="form-control" @bind-Value="newMember.Email" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Spara</button>
+</EditForm>
+
+@code {
+
+    private Member newMember = new();
+
+    private async Task HandleSubmit()
+    {
+        newMember.MemberSince = DateTime.Now;
+
+        Db.Members.Add(newMember);
+
+        await Db.SaveChangesAsync();
+
+        Nav.NavigateTo("/members");
+    }
+
+}
