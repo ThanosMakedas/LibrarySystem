@@ -1,9 +1,13 @@
 ﻿@inherits LayoutComponentBase
 
-@Body
+<div class="container-fluid">
+    <div class="row min-vh-100">
+        <div class="col-12 col-md-9 col-lg-10 p-5">
+            <LibrarySystem.Web.Components.Layout.NavMenu />
+        </div>
 
-<div id="blazor-error-ui" data-nosnippet>
-    An unhandled error has occurred.
-    <a href="." class="reload">Reload</a>
-    <span class="dismiss">🗙</span>
+        <div class="col-12 col-md-9 col-lg-10 p-4">
+            @Body
+        </div>
+    </div>
 </div>
