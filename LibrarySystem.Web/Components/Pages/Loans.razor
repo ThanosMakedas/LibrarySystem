@@ -1,0 +1,65 @@
+﻿@page "/loans"
+@using LibrarySystem.Core.Models
+@using LibrarySystem.Data
+@using Microsoft.EntityFrameworkCore
+@inject LibraryContext Db
+
+<h3>Utlåning</h3>
+
+@if (loans == null)
+{
+    <p>Laddar...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Bok</th>
+                <th>Medlem</th>
+                <th>Lånedatum</th>
+                <th>Förfallodatum</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var loan in loans)
+            {
+                <tr>
+                    <td>@loan.Book.Title</td>
+                    <td>@loan.Member.Name</td>
+                    <td>@loan.LoanDate.ToShortDateString()</td>
+                    <td>@loan.DueDate.ToShortDateString()</td>
+                    <td>
+                        @if (loan.ReturnDate != null)
+                        {
+                            <span>Returnerad</span>
+                        }
+                        else if (loan.IsOverdue)
+                        {
+                            <span>Försenad</span>
+                        }
+                        else
+                        {
+                            <span>Aktiv</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    List<Loan>? loans;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loans = await Db.Loans
+            .Include(l => l.Book)
+            .Include(l => l.Member)
+            .ToListAsync();
+    }
+
+}

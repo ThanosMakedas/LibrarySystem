@@ -29,6 +29,7 @@ app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
+// Seed data
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<LibraryContext>();
@@ -63,6 +64,50 @@ using (var scope = app.Services.CreateScope())
         );
 
         db.SaveChanges();
+    }
+
+    if (!db.Members.Any())
+    {
+        db.Members.AddRange(
+            new Member
+            {
+                MemberId = "M001",
+                Name = "Anna Svensson",
+                Email = "anna@example.com",
+                MemberSince = DateTime.Now.AddMonths(-6)
+            },
+            new Member
+            {
+                MemberId = "M002",
+                Name = "Erik Johansson",
+                Email = "erik@example.com",
+                MemberSince = DateTime.Now.AddMonths(-3)
+            }
+        );
+
+        db.SaveChanges();
+    }
+
+    if (!db.Loans.Any())
+    {
+        var firstBook = db.Books.FirstOrDefault();
+        var firstMember = db.Members.FirstOrDefault();
+
+        if (firstBook != null && firstMember != null)
+        {
+            firstBook.IsAvailable = false;
+
+            db.Loans.Add(new Loan
+            {
+                BookId = firstBook.Id,
+                MemberId = firstMember.Id,
+                LoanDate = DateTime.Now.AddDays(-5),
+                DueDate = DateTime.Now.AddDays(7),
+                ReturnDate = null
+            });
+
+            db.SaveChanges();
+        }
     }
 }
 
